@@ -1,37 +1,16 @@
 package com.example.product_crud_assignment;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-@Service
-public class ProductService {
+public interface ProductService {
 
-    private final ProductRepository productRepository;
+    Product createProduct(Product product);
 
-    @Autowired
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    List<Product> getAllProducts();
 
-    public Product createProduct(Product product) {
-        return productRepository.save(product);
-    }
+    Product getProductById(Long id);
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
+    Product updateProduct(Long id, Product updatedProduct);
 
-    public Product getProductById(String id) {
-        return productRepository.findById(id);
-    }
-
-    public Product updateProduct(String id, Product updatedProduct) {
-        return productRepository.update(id, updatedProduct);
-    }
-
-    public void deleteProduct(String id) {
-        productRepository.delete(id);
-    }
+    void deleteProduct(Long id);
 }
