@@ -1,0 +1,103 @@
+name: Product CRUD CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - release
+
+permissions:
+  contents: read
+
+jobs:
+  build-test-publish-scan:
+    name: Build, test, publish, and scan
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: read
+      security-events: write
+
+    defaults:
+      run:
+        working-directory: product-crud-assignment
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+          cache-dependency-path: product-crud-assignment/pom.xml
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: java-kotlin
+          build-mode: manual
+
+      - name: Build and test with Maven
+        run: mvn -B -ntp clean verify
+
+      - name: Analyze with CodeQL
+        uses: github/codeql-action/analyze@v4
+
+      - name: Publish JAR artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: product-crud-jar-${{ github.sha }}
+          path: product-crud-assignment/target/*.jar
+          if-no-files-found: error
+          retention-days: 14
+
+  deploy:
+    name: Demonstration deployment
+    if: github.ref == 'refs/heads/release'
+    needs: build-test-publish-scan
+    runs-on: ubuntu-latest
+
+    environment:
+      name: course-demo
+
+    concurrency:
+      group: course-demo
+      cancel-in-progress: true
+
+    steps:
+      - name: Download verified JAR
+        uses: actions/download-artifact@v8
+        with:
+          name: product-crud-jar-${{ github.sha }}
+          path: deployment
+
+      - name: Verify deployment package
+        shell: bash
+        run: |
+          set -euo pipefail
+          jar_file="$(find deployment -type f -name '*.jar' -print -quit)"
+          if [ -z "$jar_file" ]; then
+            echo "No JAR file was found in the downloaded artifact." >&2
+            exit 1
+          fi
+          unzip -t "$jar_file"
+          sha256sum "$jar_file"
+
+      - name: Record demonstration deployment
+        shell: bash
+        run: |
+          {
+            echo "## Demonstration deployment completed"
+            echo
+            echo "- Branch: $GITHUB_REF_NAME"
+            echo "- Commit: $GITHUB_SHA"
+            echo "- Environment: course-demo"
+            echo
+            echo "The verified JAR is ready for a real hosting target when one is configured."
+          } >> "$GITHUB_STEP_SUMMARY"
