@@ -1,4 +1,4 @@
-\# Java Fundamentals Practice
+# Java Fundamentals Practice
 
 
 
@@ -6,27 +6,27 @@ This repository contains my Java practice and assignment work completed during t
 
 
 
-\## Completed Assignments
+## Completed Assignments
 
 
 
-\### Gourmet Rating Tracker
+### Gourmet Rating Tracker
 
 A Java console application using `ArrayList` to store food items and ratings.
 
 
 
-\### Vehicle Hub
+### Vehicle Hub
 
 A Java OOP assignment demonstrating:
 
-\- Inheritance
+- Inheritance
 
-\- Encapsulation
+- Encapsulation
 
-\- Method overriding
+- Method overriding
 
-\- Parent and child classes
+- Parent and child classes
 
 
 
@@ -36,17 +36,17 @@ Folder:
 
 
 
-\### Bank Account System
+### Bank Account System
 
 A Java OOP assignment demonstrating:
 
-\- Abstraction
+- Abstraction
 
-\- Inheritance
+- Inheritance
 
-\- Encapsulation
+- Encapsulation
 
-\- Polymorphism
+- Polymorphism
 
 
 
@@ -56,7 +56,7 @@ Folder:
 
 
 
-\## Practice Topics
+## Practice Topics
 
 
 
@@ -64,29 +64,29 @@ This repository also includes practice files for:
 
 
 
-\- Java data types
+- Java data types
 
-\- Operators
+- Operators
 
-\- Control flow
+- Control flow
 
-\- Arrays
+- Arrays
 
-\- ArrayLists
+- ArrayLists
 
-\- Loops
+- Loops
 
-\- Methods
+- Methods
 
-\- Packages
+- Packages
 
-\- Object-oriented programming
+- Object-oriented programming
 
-\- Exceptions and logging
+- Exceptions and logging
 
 
 
-\## Advanced Java Practice
+## Advanced Java Practice
 
 
 
@@ -98,19 +98,19 @@ Folder:
 
 Includes examples of:
 
-\- Try/catch/finally
+- Try/catch/finally
 
-\- Checked exceptions
+- Checked exceptions
 
-\- Unchecked exceptions
+- Unchecked exceptions
 
-\- Custom exceptions
+- Custom exceptions
 
-\- Java logging
+- Java logging
 
 
 
-\## Notes
+## Notes
 
 
 
